@@ -1,0 +1,13 @@
+{
+  "name": "bedrock-angular-authn-did",
+  "version": "0.0.1-dev",
+  "moduleType": [
+    "amd"
+  ],
+  "main": "./main.js",
+  "dependencies": {
+    "bedrock-angular": "^2.0.0",
+    "bedrock-angular-alert": "^2.0.0",
+    "bedrock-angular-authn": "^2.0.0"
+  }
+}
