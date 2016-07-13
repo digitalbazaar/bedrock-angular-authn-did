@@ -33,7 +33,7 @@ function Ctrl($scope, brAlertService, brDidService, config) {
       agentUrl: config.data['authorization-io'].agentUrl
     }).then(function(identity) {
       if(!identity || !identity.id) {
-        throw new Error('Decentralized identifier not provided.');
+        throw new Error('Login canceled.');
       }
       return brDidService.login(identity);
     }).then(function(identity) {
