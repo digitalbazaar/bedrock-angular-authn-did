@@ -1,3 +1,8 @@
+/*!
+ * Copyright (c) 2016 Digital Bazaar, Inc. All rights reserved.
+ */
+/* jshint -W030 */
+
 var bedrock = global.bedrock;
 
 var api = {};
@@ -79,7 +84,7 @@ api.incognitoLogin = function(options) {
   modal.element(by.brModel('model.passphrase')).sendKeys(options.password);
   modal.element(by.model('model.permanent')).click();
   modal.element(by.partialButtonText('Add')).click();
-  bedrock.waitForModalToClose(modal);
+  browser.wait(EC.invisibilityOf(modal), 3000);
   // api.login needs to register the incognito identity
   // with authio for the first time.
   options.authioRegister = true;
