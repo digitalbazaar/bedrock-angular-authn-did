@@ -1,19 +1,14 @@
 /*!
  * Copyright (c) 2016 Digital Bazaar, Inc. All rights reserved.
  */
-/* jshint -W030 */
-
+/* globals expect */
 var bedrock = global.bedrock;
+var helpers = require('./helpers');
 
 var api = {};
 module.exports = api;
 
-var by = global.by;
-var element = global.element;
-var should = global.should;
-var expect = global.expect;
 var protractor = global.protractor;
-
 var EC = protractor.ExpectedConditions;
 
 api.COMPONENT_TAG = 'br-authn-did';
@@ -113,4 +108,113 @@ api.closeAuthio = function() {
 // See api.openAuthio()
 api.clearStorage = function() {
   browser.executeScript('window.localStorage.clear();');
+};
+
+api.registerDid = function(options) {
+  // wait for AIO window to open
+  browser.sleep(2000);
+  helpers.isInternetExplorer().then(function(isIe) {
+    if(isIe) {
+      var iframe = by.tagName('iframe');
+      var el = browser.driver.findElement(iframe);
+      browser.switchTo().frame(el);
+      return;
+    }
+    browser.wait(function() {
+      return browser.getAllWindowHandles().then(function(handles) {
+        // There should be two windows open now
+        if(handles.length === 2) {
+          return true;
+        }
+      });
+    }, 30000);
+    bedrock.selectWindow(1);
+    browser.driver.getCurrentUrl().should.eventually.contain('authorization');
+  });
+  browser.wait(EC.visibilityOf(element(by.tagName('aio-register-did'))), 30000);
+  element(by.brModel('$ctrl.passphrase')).sendKeys(options.password);
+  element(by.brModel('$ctrl.passphraseConfirmation'))
+    .sendKeys(options.password);
+  var registerButton = element(by.buttonText('Register'));
+  browser.wait(EC.elementToBeClickable(registerButton), 3000);
+  registerButton.click();
+  helpers.isInternetExplorer().then(function(isIe) {
+    if(isIe) {
+      browser.switchTo().defaultContent();
+      // NOTE: unable to find any way of detecting when the iframe is removed
+      browser.sleep(10000);
+      return;
+    }
+    browser.wait(function() {
+      return browser.getAllWindowHandles().then(function(handles) {
+        // there should only be one window open after AIO is finished
+        if(handles.length === 1) {
+          return true;
+        }
+      });
+    }, 45000);
+    bedrock.selectWindow(0);
+  });
+};
+
+api.loginDid = function(options) {
+  if(!options.skipSignIn) {
+    browser.wait(
+      EC.elementToBeClickable(element(by.buttonText('Sign In')), 15000));
+    element(by.buttonText('Sign In')).click();
+  }
+  var didLogin = element(by.partialButtonText('Decentralized Identity'));
+  browser.wait(EC.elementToBeClickable(didLogin), 3000);
+  didLogin.click();
+  browser.sleep(2000);
+  helpers.isInternetExplorer().then(function(isIe) {
+    if(isIe) {
+      var iframe = by.tagName('iframe');
+      var el = browser.driver.findElement(iframe);
+      browser.switchTo().frame(el);
+      return;
+    }
+    browser.wait(function() {
+      return browser.getAllWindowHandles().then(function(handles) {
+        // There should be two windows open now
+        if(handles.length === 2) {
+          return true;
+        }
+      });
+    }, 30000);
+    bedrock.selectWindow(1);
+    browser.driver.getCurrentUrl().should.eventually.contain('authorization');
+  });
+
+  // user action
+  if(options.cancel) {
+    $('a.close').click();
+  } else {
+    element.all(by.repeater('(id, identity) in ctrl.identities'))
+      .then(function(identities) {
+        identities[0].click();
+      });
+    if(!options.quickIdentity) {
+      element(by.brModel('ctrl.password')).sendKeys(options.password);
+      element(by.buttonText('Login')).click();
+    }
+  }
+
+  helpers.isInternetExplorer().then(function(isIe) {
+    if(isIe) {
+      browser.switchTo().defaultContent();
+      // NOTE: unable to find any way of detecting when the iframe is removed
+      browser.sleep(10000);
+      return;
+    }
+    browser.wait(function() {
+      return browser.getAllWindowHandles().then(function(handles) {
+        // there should only be one window open after AIO is finished
+        if(handles.length === 1) {
+          return true;
+        }
+      });
+    }, 45000);
+    bedrock.selectWindow(0);
+  });
 };

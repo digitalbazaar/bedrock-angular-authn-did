@@ -1,6 +1,7 @@
 /*!
  * Copyright (c) 2016 Digital Bazaar, Inc. All rights reserved.
  */
+/* globals navigator */
 define([], function() {
 
 'use strict';
