@@ -1,9 +1,14 @@
 # bedrock-angular-authn-did ChangeLog
 
+## 1.0.3 - 2016-11-11
+
+### Changed
+- Add Protractor tests.
+
 ## 1.0.2 - 2016-10-25
 
 ### Changed
-- Add protractor pages.
+- Add Protractor pages.
 
 ## 1.0.1 - 2016-07-14
 
