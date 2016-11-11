@@ -1,6 +1,6 @@
 {
   "name": "bedrock-angular-authn-did",
-  "version": "1.0.3-0",
+  "version": "1.0.3",
   "moduleType": [
     "amd"
   ],
