@@ -1,7 +1,7 @@
 /*!
- * Copyright (c) 2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2016-2017 Digital Bazaar, Inc. All rights reserved.
  */
-/* globals navigator */
+/* globals requirejs */
 define([], function() {
 
 'use strict';
@@ -10,7 +10,8 @@ function register(module) {
   module.component('brAuthnDid', {
     bindings: {
       sysIdentifier: '@brIdentity',
-      onLogin: '&brOnLogin'
+      onLogin: '&brOnLogin',
+      onNotRegistered: '&?brOnNotRegistered'
     },
     controller: Ctrl,
     templateUrl:
@@ -19,13 +20,17 @@ function register(module) {
 }
 
 /* @ngInject */
-function Ctrl($scope, brAlertService, brDidService, config) {
+function Ctrl($q, $scope, brAlertService, brDidService, config) {
   var self = this;
   self.loading = false;
 
+  $scope.$on('brAuthnDid.login', function() {
+    self.login();
+  });
+
   self.login = function() {
     self.loading = true;
-    navigator.credentials.get({
+    var identityQuery = {
       identity: {
         query: {
           '@context': 'https://w3id.org/identity/v1',
@@ -34,22 +39,31 @@ function Ctrl($scope, brAlertService, brDidService, config) {
         },
         agentUrl: config.data['authorization-io'].agentUrl
       }
-    }).then(function(identity) {
-      if(!identity || !identity.id) {
-        throw new Error('Login canceled.');
-      }
-      return brDidService.login(identity);
-    }).then(function(identity) {
-      if(!identity) {
-        return;
-      }
-      return self.onLogin({identity: identity});
-    }).catch(function(err) {
-      brAlertService.add('error', err, {scope: $scope});
-    }).then(function() {
-      self.loading = false;
-      $scope.$apply();
-    });
+    };
+    if(self.onNotRegistered) {
+      identityQuery.identity.enableRegistration = true;
+    }
+    $q.when(navigator.credentials.get(identityQuery))
+      .then(function(credential) {
+        if(credential === null) {
+          throw new Error('Login canceled.');
+        }
+        return brDidService.login(credential.identity);
+      }).catch(function(err) {
+        if(self.onNotRegistered && err.message === 'NotRegisteredError') {
+          return self.onNotRegistered();
+        }
+        throw err;
+      }).then(function(identity) {
+        if(!identity) {
+          return;
+        }
+        return self.onLogin({identity: identity});
+      }).catch(function(err) {
+        brAlertService.add('error', err, {scope: $scope});
+      }).then(function() {
+        self.loading = false;
+      });
   };
 }
 

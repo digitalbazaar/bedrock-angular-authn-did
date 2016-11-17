@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2016-2017 Digital Bazaar, Inc. All rights reserved.
  */
 define([], function() {
 
@@ -10,12 +10,11 @@ function register(module) {
 }
 
 /* @ngInject */
-function factory($http) {
+function factory($http, config) {
   var service = {};
 
   service.login = function(authData) {
-    // TODO: make URL configurable
-    return Promise.resolve($http.post('/authn/did/login', authData))
+    return $http.post(config.data['authn-did'].login.basePath, authData)
       .then(function(response) {
         return response.data;
       });

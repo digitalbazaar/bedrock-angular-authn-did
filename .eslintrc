@@ -1,5 +1,6 @@
 {
   "env": {
-    "amd": true
+    "amd": true,
+    "browser": true
   }
 }
