@@ -26,12 +26,14 @@ function Ctrl($scope, brAlertService, brDidService, config) {
   self.login = function() {
     self.loading = true;
     navigator.credentials.get({
-      query: {
-        '@context': 'https://w3id.org/identity/v1',
-        id: self.sysIdentifier || '',
-        publicKey: ''
-      },
-      agentUrl: config.data['authorization-io'].agentUrl
+      identity: {
+        query: {
+          '@context': 'https://w3id.org/identity/v1',
+          id: self.sysIdentifier || '',
+          publicKey: ''
+        },
+        agentUrl: config.data['authorization-io'].agentUrl
+      }
     }).then(function(identity) {
       if(!identity || !identity.id) {
         throw new Error('Login canceled.');
