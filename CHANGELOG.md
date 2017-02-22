@@ -1,5 +1,14 @@
 # bedrock-angular-authn-did ChangeLog
 
+## 2.0.0 - 2017-02-22
+
+### Added
+- Implement enableRegistration API.
+
+### Changed
+- Return `$q` promises.
+- Update `credentials-polyfill` dependency to 1.x.
+
 ## 1.0.3 - 2016-11-11
 
 ### Changed
