@@ -43,17 +43,17 @@ function Ctrl($q, $scope, brAlertService, brDidService, config) {
     if(self.onNotRegistered) {
       identityQuery.identity.enableRegistration = true;
     }
-    $q.when(navigator.credentials.get(identityQuery))
+    $q.resolve(navigator.credentials.get(identityQuery))
       .then(function(credential) {
         if(credential === null) {
-          throw new Error('Login canceled.');
+          return $q.reject(new Error('Login canceled.'));
         }
         return brDidService.login(credential.identity);
       }).catch(function(err) {
         if(self.onNotRegistered && err.message === 'NotRegisteredError') {
           return self.onNotRegistered();
         }
-        throw err;
+        return $q.reject(err);
       }).then(function(identity) {
         if(!identity) {
           return;
