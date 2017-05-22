@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2016-2017 Digital Bazaar, Inc. All rights reserved.
  */
 var bedrock = require('bedrock');
 var config = bedrock.config;
@@ -12,15 +12,15 @@ config.mongodb.port = 27017;
 config.mongodb.local.collection = 'bedrock_angular_authn_did_app';
 
 var dir = path.join(__dirname);
-config.requirejs.bower.packages.push({
+config.views.system.packages.push({
   path: path.join(dir, 'components'),
-  manifest: path.join(dir, 'bower.json')
+  manifest: path.join(dir, 'package.json')
 });
 
 var parentDir = path.join(__dirname, '..');
-config.requirejs.bower.packages.push({
+config.views.system.packages.push({
   path: path.join(parentDir),
-  manifest: path.join(parentDir, 'bower.json')
+  manifest: path.join(parentDir, 'package.json')
 });
 
 // Configure mock IdP

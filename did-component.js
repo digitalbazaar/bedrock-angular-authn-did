@@ -1,23 +1,15 @@
 /*!
  * Copyright (c) 2016-2017 Digital Bazaar, Inc. All rights reserved.
  */
-/* globals requirejs */
-define([], function() {
-
-'use strict';
-
-function register(module) {
-  module.component('brAuthnDid', {
-    bindings: {
-      sysIdentifier: '@brIdentity',
-      onLogin: '&brOnLogin',
-      onNotRegistered: '&?brOnNotRegistered'
-    },
-    controller: Ctrl,
-    templateUrl:
-      requirejs.toUrl('bedrock-angular-authn-did/did-component.html')
-  });
-}
+export default {
+  bindings: {
+    sysIdentifier: '@brIdentity',
+    onLogin: '&brOnLogin',
+    onNotRegistered: '&?brOnNotRegistered'
+  },
+  controller: Ctrl,
+  templateUrl: 'bedrock-angular-authn-did/did-component.html'
+};
 
 /* @ngInject */
 function Ctrl($q, $scope, brAlertService, brDidService, config) {
@@ -66,7 +58,3 @@ function Ctrl($q, $scope, brAlertService, brDidService, config) {
       });
   };
 }
-
-return register;
-
-});

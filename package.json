@@ -1,0 +1,25 @@
+{
+  "name": "bedrock-angular-authn-did",
+  "version": "2.0.0",
+  "description": "bedrock-angular-authn-did",
+  "main": "index.js",
+  "dependencies": {
+    "angular": "~1.6.4",
+    "bedrock-angular-alert": "^3.0.0",
+    "bedrock-angular-authn": "^3.0.0",
+    "bedrock-angular-modal": "^5.0.0",
+    "credentials-polyfill": "^1.1.5",
+    "font-awesome": "^4.7.0"
+  },
+  "bedrock": {
+    "browserDependencies": "all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digitalbazaar/bedrock-angular-authn-did.git"
+  },
+  "bugs": {
+    "url": "https://github.com/digitalbazaar/bedrock-angular-authn-did/issues"
+  },
+  "homepage": "https://github.com/digitalbazaar/bedrock-angular-authn-did#readme"
+}

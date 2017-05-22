@@ -1,16 +1,8 @@
 /*!
  * Copyright (c) 2016-2017 Digital Bazaar, Inc. All rights reserved.
  */
-define([], function() {
-
-'use strict';
-
-function register(module) {
-  module.service('brDidService', factory);
-}
-
 /* @ngInject */
-function factory($http, config) {
+export default function factory($http, config) {
   var service = {};
 
   service.login = function(authData) {
@@ -22,7 +14,3 @@ function factory($http, config) {
 
   return service;
 }
-
-return register;
-
-});

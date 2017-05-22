@@ -1,14 +1,21 @@
 {
   "name": "bedrock-angular-authn-did-test",
   "version": "0.0.1-0",
+  "main": "index.js",
   "scripts": {
     "test": "node --preserve-symlinks test.js test --framework protractor",
-    "postinstall": "bower install && node --preserve-symlinks test compile-less"
+    "postinstall": "node --preserve-symlinks test compile-less"
   },
   "dependencies": {
     "async": "^1.5.2",
-    "bedrock": "^1.0.0",
+    "bedrock": "github:digitalbazaar/bedrock#updateTestDeps",
+    "bedrock-angular": "digitalbazaar/bedrock-angular#systemjs",
+    "bedrock-angular-alert": "^3.0.0",
+    "bedrock-angular-authn": "^3.00",
+    "bedrock-angular-form": "^3.0.0",
+    "bedrock-angular-modal": "^5.0.0",
     "bedrock-authn-did": "^3.0.0",
+    "bedrock-authn-password": "^3.0.3",
     "bedrock-did-client": "^1.0.0",
     "bedrock-docs": "^2.0.2",
     "bedrock-express": "^2.0.6",
@@ -17,17 +24,31 @@
     "bedrock-mongodb": "^3.2.2",
     "bedrock-passport": "^3.1.7",
     "bedrock-permission": "^2.4.2",
-    "bedrock-protractor": "^3.3.0",
-    "bedrock-requirejs": "^2.1.0",
+    "bedrock-protractor": "digitalbazaar/bedrock-protractor#systemjs",
+    "bedrock-requirejs": "digitalbazaar/bedrock-requirejs#systemjs-transition",
     "bedrock-server": "^2.1.3",
-    "bedrock-test": "^1.1.1",
+    "bedrock-test": "digitalbazaar/bedrock-test#2.x",
     "bedrock-validation": "^2.2.1",
-    "bedrock-views": "^4.0.0",
+    "bedrock-views": "digitalbazaar/bedrock-views#remove-requirejs",
+    "chance": "^1.0.9",
     "cors": "^2.8.1",
+    "credentials-polyfill": "^1.1.5",
     "did-io": "^0.6.6",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.2.1",
     "jsonld-signatures": "^1.1.5",
     "lodash": "^4.16.6",
     "request": "^2.78.0",
-    "uuid": "^2.0.3"
+    "uuid": "^3.0.1"
+  },
+  "bedrock": {
+    "browserDependencies": [
+      "bedrock-angular",
+      "bedrock-angular-form",
+      "check-error",
+      "credentials-polyfill",
+      "chance",
+      "jquery"
+    ]
   }
 }

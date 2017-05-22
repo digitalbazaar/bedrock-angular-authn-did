@@ -1,7 +1,7 @@
 /*
  * Mock IdP Services
  *
- * Copyright (c) 2012-2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2012-2017 Digital Bazaar, Inc. All rights reserved.
  */
 var bedrock = require('bedrock');
 var cors = require('cors');

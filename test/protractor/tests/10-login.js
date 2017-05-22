@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2016-2017 Digital Bazaar, Inc. All rights reserved.
  */
 /* globals should */
 var bedrock = global.bedrock;
@@ -17,7 +17,7 @@ describe('bedrock-angular-authn-did', () => {
     authnDid.registerDid({password: 'Password'});
   });
   it('should log in with a DID', () => {
-    authnDid.loginDid({password: 'Password'});
+    authnDid.loginDid({quickIdentity: true});
     $('pre').getText().then(text => {
       var i = JSON.parse(text);
       i.should.be.an('object');
@@ -35,9 +35,9 @@ describe('bedrock-angular-authn-did', () => {
   });
   it('displays an error if AIO login is cancelled', () => {
     authnDid.loginDid({cancel: true});
-    var brError = element(by.css('.br-alert-area-fixed-show'));
+    var brError = $('.br-alert-area-fixed-show');
     browser.wait(EC.visibilityOf(brError), 3000);
-    brError.isPresent().should.eventually.be.true;
+    brError.isDisplayed().should.eventually.be.true;
     brError.getText().should.eventually.contain('Login canceled.');
   });
 });

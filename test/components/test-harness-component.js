@@ -1,18 +1,13 @@
 /*!
- * Copyright (c) 2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2016-2017 Digital Bazaar, Inc. All rights reserved.
  */
 /* globals IdentityCredential */
-define(['node-uuid'], function(uuid) {
+import Chance from 'chance';
 
-'use strict';
-
-function register(module) {
-  module.component('brTestHarness', {
-    controller: Ctrl,
-    templateUrl: requirejs.toUrl(
-      'bedrock-angular-authn-did-test/test-harness-component.html')
-  });
-}
+export default {
+  controller: Ctrl,
+  templateUrl: 'bedrock-angular-authn-did-test/test-harness-component.html'
+};
 
 /* @ngInject */
 function Ctrl($scope, brAuthnService, config) {
@@ -31,9 +26,10 @@ function Ctrl($scope, brAuthnService, config) {
   };
 
   self.registerDid = function() {
+    const chance = new Chance();
     IdentityCredential.register({
       idp: config.data.idp.owner.id,
-      name: uuid.v4(),
+      name: chance.guid(),
       agentUrl: config.data['authorization-io'].registerUrl
     }).then(function(didDocument) {
       if(!didDocument) {
@@ -44,7 +40,3 @@ function Ctrl($scope, brAuthnService, config) {
     });
   };
 }
-
-return register;
-
-});
