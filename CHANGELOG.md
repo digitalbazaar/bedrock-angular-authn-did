@@ -1,5 +1,13 @@
 # bedrock-angular-authn-did ChangeLog
 
+## 3.0.0 - 2017-06-01
+
+### Changed
+- **BREAKING**: Switch package manager from bower to npm.
+- **BREAKING**: Replace requirejs/amd with ES6 import.
+- Angular 1.6.x is required.
+- Update test suite to work with latest authorization.io UI.
+
 ## 2.0.0 - 2017-02-22
 
 ### Added
