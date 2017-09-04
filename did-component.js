@@ -1,6 +1,7 @@
 /*!
  * Copyright (c) 2016-2017 Digital Bazaar, Inc. All rights reserved.
  */
+/* global navigator */
 export default {
   bindings: {
     sysIdentifier: '@brIdentity',
@@ -22,25 +23,26 @@ function Ctrl($q, $scope, brAlertService, brDidService, config) {
 
   self.login = function() {
     self.loading = true;
-    var identityQuery = {
-      identity: {
-        query: {
+    const credentialQuery = {
+      web: {
+        VerifiableProfile: {
           '@context': 'https://w3id.org/identity/v1',
           id: self.sysIdentifier || '',
           publicKey: ''
         },
-        agentUrl: config.data['authorization-io'].agentUrl
+        mediatorUrl: config.data['authorization-io'].baseUri
       }
     };
     if(self.onNotRegistered) {
-      identityQuery.identity.enableRegistration = true;
+      // TODO: reconsider design for this feature
+      credentialQuery.web.enableRegistration = true;
     }
-    $q.resolve(navigator.credentials.get(identityQuery))
+    $q.resolve(navigator.credentials.get(credentialQuery))
       .then(function(credential) {
         if(credential === null) {
           return $q.reject(new Error('Login canceled.'));
         }
-        return brDidService.login(credential.identity);
+        return brDidService.login(credential.data);
       }).catch(function(err) {
         if(self.onNotRegistered && err.message === 'NotRegisteredError') {
           return self.onNotRegistered();
