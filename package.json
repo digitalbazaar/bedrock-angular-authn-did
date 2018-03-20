@@ -4,10 +4,10 @@
   "description": "bedrock-angular-authn-did",
   "main": "index.js",
   "dependencies": {
-    "angular": "~1.6.4",
-    "bedrock-angular-alert": "digitalbazaar/bedrock-angular-alert#material",
-    "bedrock-angular-authn": "digitalbazaar/bedrock-angular-authn#material",
-    "bedrock-angular-modal": "digitalbazaar/bedrock-angular-modal#material",
+    "bedrock-angular": "^4.0.0",
+    "bedrock-angular-alert": "^4.0.0",
+    "bedrock-angular-authn": "^4.0.0",
+    "bedrock-angular-modal": "^6.0.0",
     "credential-handler-polyfill": "^0.1.0",
     "font-awesome": "^4.7.0"
   },
