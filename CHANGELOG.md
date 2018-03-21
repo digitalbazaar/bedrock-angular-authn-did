@@ -1,5 +1,7 @@
 # bedrock-angular-authn-did ChangeLog
 
+## 4.0.0 - 2018-03-21
+
 ### Changed
 - **BREAKING**: Switch to material design.
 - **BREAKING**: Use new credential-handler syntax.
