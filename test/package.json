@@ -9,27 +9,28 @@
   "dependencies": {
     "async": "^1.5.2",
     "bedrock": "^1.6.0",
-    "bedrock-angular": "digitalbazaar/bedrock-angular#systemjs",
-    "bedrock-angular-alert": "^3.0.0",
-    "bedrock-angular-authn": "^3.00",
-    "bedrock-angular-form": "^3.0.0",
-    "bedrock-angular-modal": "^5.0.0",
-    "bedrock-authn-did": "^3.0.0",
+    "bedrock-angular": "^4.0.0",
+    "bedrock-angular-alert": "^4.0.0",
+    "bedrock-angular-authn": "^4.0.0",
+    "bedrock-angular-authn-did": "file:..",
+    "bedrock-angular-form": "^4.0.0",
+    "bedrock-angular-modal": "^6.0.0",
+    "bedrock-authn-did": "^3.1.1",
     "bedrock-authn-password": "^3.0.3",
     "bedrock-did-client": "^1.0.0",
     "bedrock-docs": "^2.0.2",
     "bedrock-express": "^2.0.6",
     "bedrock-identity": "^4.3.0",
     "bedrock-key": "^3.1.4",
-    "bedrock-mongodb": "^3.2.2",
+    "bedrock-mongodb": "^5.1.2",
     "bedrock-passport": "^3.1.7",
     "bedrock-permission": "^2.4.2",
     "bedrock-protractor": "digitalbazaar/bedrock-protractor#systemjs",
     "bedrock-requirejs": "digitalbazaar/bedrock-requirejs#systemjs-transition",
     "bedrock-server": "^2.1.3",
-    "bedrock-test": "digitalbazaar/bedrock-test#2.x",
+    "bedrock-test": "^2.0.0",
     "bedrock-validation": "^2.2.1",
-    "bedrock-views": "digitalbazaar/bedrock-views#remove-requirejs",
+    "bedrock-views": "^5.3.0",
     "chance": "^1.0.9",
     "cors": "^2.8.1",
     "credentials-polyfill": "^1.1.5",
@@ -49,6 +50,11 @@
       "credentials-polyfill",
       "chance",
       "jquery"
-    ]
+    ],
+    "manifest": {
+      "jsonld": {
+        "main": "dist/jsonld.min.js"
+      }
+    }
   }
 }
