@@ -62,7 +62,8 @@ config.idp.owner.privateKey =
   'envNeY8vEhokzBgkbHA3NQJD4cLoHPX3sen6k+ucpFygcbPjpMhrU7SXJMPjDu0o\n' +
   '7BwpfaywiaAYiSZEe6HgfXASCAejg7IIP9RP30N2gOviXzbeciI=\n' +
   '-----END RSA PRIVATE KEY-----\n';
-config.idp.owner.didRegistrationUrl = 'https://authorization.dev:33443/dids/';
+config.idp.owner.didRegistrationUrl =
+  'https://authorization.localhost:33443/dids/';
 config.idp.owner.didDocument = {
   '@context': 'https://w3id.org/identity/v1',
   id: config.idp.owner.id,
@@ -99,7 +100,7 @@ config.views.vars.idp = {
 };
 config.views.vars['authorization-io'] = {};
 config.views.vars['authorization-io'].baseUri =
-  'https://authorization.dev:33443';
+  'https://authorization.localhost:33443';
 config.views.vars['authorization-io'].agentUrl =
   config.views.vars['authorization-io'].baseUri + '/agent';
 config.views.vars['authorization-io'].registerUrl =
